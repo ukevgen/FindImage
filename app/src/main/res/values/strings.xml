@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">FindImage</string>
     <string name="tab_to_start_find_image">Tab to start find image</string>
+    <string name="action_search">find_image</string>
 </resources>

@@ -1,7 +1,6 @@
 package com.internship.pbt.findimage.net;
 
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.internship.pbt.findimage.net.services.SearchService;
 
@@ -11,7 +10,6 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 /**
  * Created by user on 01.03.2017.
@@ -44,11 +42,8 @@ public class RetrofitApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(ApiConstants.API_END_POINT)
                 .client(getClient())
-                .addConverterFactory(new QualifiedTypeConverterFactory(
-                        GsonConverterFactory.create(),
-                        SimpleXmlConverterFactory.create()
-                ))
-                .build();
+                .addConverterFactory(GsonConverterFactory.create()
+                ).build();
 
         buildServices(retrofit);
 

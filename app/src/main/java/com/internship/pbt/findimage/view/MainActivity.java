@@ -1,27 +1,22 @@
 package com.internship.pbt.findimage.view;
 
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
+import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.internship.pbt.findimage.R;
 import com.internship.pbt.findimage.presentation.presenter.main.MainPresenterIml;
 import com.internship.pbt.findimage.view.fragment.favorites.FavoritesFragment;
 import com.internship.pbt.findimage.view.fragment.results.ResultsFragment;
 
-public class MainActivity extends AppCompatActivity implements MainView, View.OnClickListener,
-        SearchView.OnQueryTextListener {
+public class MainActivity extends AppCompatActivity implements MainView, View.OnClickListener {
 
     private static final String RESULTS_FRAGMENT_FR_TAG = "11";
     private static final String FAVORITES_FRAGMENT_FR_TAG = "12";
@@ -40,6 +35,9 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         presenter = new MainPresenterIml(this);
         initViews();
 
+        presenter.onResultsTab();
+
+
     }
 
     @Override
@@ -53,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         mTabLayout.addTab(mTabLayout.newTab().setText("Favorites"));
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
-        mTextOnToolbar = (TextView) findViewById(R.id.chat_toolbar_title);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         mTabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -77,28 +75,6 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
             }
         });
 
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_search, menu);
-        searchMenuItem = menu.findItem(R.id.action_search);
-        mSearchView = (SearchView) searchMenuItem.getActionView();
-        mSearchView.setOnQueryTextListener(this);
-        return true;
-    }
-
-    @Override
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String newText) {
-        // newText is text entered by user to SearchView
-        Toast.makeText(getApplicationContext(), newText, Toast.LENGTH_LONG).show();
-        return false;
     }
 
     @Override

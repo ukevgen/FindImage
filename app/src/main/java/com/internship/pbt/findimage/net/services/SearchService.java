@@ -14,7 +14,11 @@ public interface SearchService {
 
     // TODO  implement my request
 
-    @GET("/places/coords_to_places_ru.json")
-    Call<List<Object>> airports(@Query("coords") String gps);
+    @GET("/v1?")
+    Call<List<Object>> findImage(@Query("q") String q,
+                                 @Query("num") String count,
+                                 @Query("cx") String cx,
+                                 @Query("key") String api_key,
+                                 @Query("alt") String alt);
 
 }
