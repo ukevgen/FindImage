@@ -25,7 +25,7 @@ public class RetrofitApi {
 
     private volatile static RetrofitApi INSTANCE;
     private static OkHttpClient sClient;
-    private SearchService serchService;
+    private SearchService searchService;
 
 
     public static RetrofitApi getRetrofitApi() {
@@ -57,11 +57,11 @@ public class RetrofitApi {
     @NonNull
     private void buildServices(Retrofit retrofit) {
         //TODO create this class
-        serchService = retrofit.create(SearchService.class);
+        searchService = retrofit.create(SearchService.class);
     }
 
-    public SearchService getSerchService() {
-        return serchService;
+    public SearchService getSearchService() {
+        return searchService;
     }
 
     @NonNull

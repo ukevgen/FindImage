@@ -29,7 +29,7 @@ public class ImageLoader extends BaseLoader {
     protected Response apiCall() throws IOException {
         // TODO implement request like example
 
-        SearchService service = RetrofitApi.getRetrofitApi().getSerchService();
+        SearchService service = RetrofitApi.getRetrofitApi().getSearchService();
         Call<List<Object>> call = service.airports("as");
         /*AirportsService service = ApiFactory.getAirportsService();
         Call<List<Airport>> call = service.airports(mGps);
