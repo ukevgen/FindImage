@@ -107,7 +107,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
         if (id == R.id.image_loader) {
             if (data.getTypedAnswer() instanceof ImageResponse) {
                 ImageResponse response = (ImageResponse) data.getTypedAnswer();
-                presenter.setAdapter(response.getItems());
+                presenter.setItems(response.getItems());
                 recyclerView.setAdapter(presenter.getAdapter());
             }
         }
@@ -155,9 +155,10 @@ public class ResultsFragment extends Fragment implements ResultsView,
     public void onResume() {
 
         super.onResume();
-/*        Log.d("TAG", String.valueOf((presenter.getAdapter() == null)));
+        Log.d("TAG", String.valueOf((presenter.getAdapter() == null)));
         if (recyclerView.getAdapter() == null) {
+            presenter.setAdapter();
             recyclerView.setAdapter(presenter.getAdapter());
-        }*/
+        }
     }
 }

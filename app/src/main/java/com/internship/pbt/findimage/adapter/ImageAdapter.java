@@ -31,6 +31,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
         this.items = items;
     }
 
+    public ImageAdapter(List<Item> items) {
+        this.items = items;
+    }
+
     @Override
     public ImageHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext())
@@ -45,8 +49,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
         holder.setPosition(position);
         // TODO src information about photo
         CseThumbnail cseThumbnail;
-        if (items.get(position).getPagemap() != null)
-            cseThumbnail = items.get(position).getPagemap().getCseThumbnail().get(0);
+        //if (items.get(position).getPagemap() != null)
+        //    cseThumbnail = items.get(position).getPagemap().getCseThumbnail().get(0);
 
         String describe = items.get(position).getTitle();
         holder.mName.setText(describe);

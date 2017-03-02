@@ -5,6 +5,7 @@ import com.internship.pbt.findimage.net.content.ImageResponse;
 import com.internship.pbt.findimage.net.content.Item;
 import com.internship.pbt.findimage.view.fragment.results.ResultsView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,7 +22,8 @@ public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnIma
 
     public ResultsPresenterImp(ResultsView resultsView) {
         this.resultsView = resultsView;
-        adapter = new ImageAdapter();
+        items = new ArrayList<>();
+        adapter = new ImageAdapter(items);
         adapter.setOnImageClickCallback(this);
     }
 
@@ -29,11 +31,17 @@ public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnIma
         this.imageResponse = imageResponse;
     }
 
-    public void setAdapter(List<Item> items) {
+    public void setItems(List<Item> items) {
         this.items = items;
+        setAdapter();
+    }
+
+
+    public void setAdapter() {
         adapter.setItems(items);
         adapter.notifyDataSetChanged();
     }
+
 
     @Override
     public void onFindImage() {
