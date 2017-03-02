@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.internship.pbt.findimage.R;
 import com.internship.pbt.findimage.net.content.CseThumbnail;
-import com.internship.pbt.findimage.net.content.ImageResponse;
 import com.internship.pbt.findimage.net.content.Item;
 
 import java.util.List;
@@ -45,9 +44,11 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
 
         holder.setPosition(position);
         // TODO src information about photo
-        CseThumbnail cseThumbnail = items.get(position).getPagemap().getCseThumbnail().get(0);
+        CseThumbnail cseThumbnail;
+        if (items.get(position).getPagemap() != null)
+            cseThumbnail = items.get(position).getPagemap().getCseThumbnail().get(0);
 
-        String describe = items.get(position).getSnippet();
+        String describe = items.get(position).getTitle();
         holder.mName.setText(describe);
 
 

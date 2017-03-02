@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
-
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ public class ResultsFragment extends Fragment implements ResultsView,
     private ResultsPresenterImp presenter;
     private String mQuery;
     private Button btFind;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager mLayoutManager;
 
 
     @Nullable
@@ -42,7 +45,13 @@ public class ResultsFragment extends Fragment implements ResultsView,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_results, container, false);
         presenter = new ResultsPresenterImp(this);
+
         btFind = (Button) view.findViewById(R.id.find_image);
+        recyclerView = (RecyclerView) view.findViewById(R.id.image_container);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        //recyclerView.setAdapter(presenter.getAdapter());
+        btFind.setOnClickListener(this);
         setHasOptionsMenu(true);
         //getActivity().getLoaderManager().initLoader(R.id.image_loader, null, this);
         return view;
@@ -70,7 +79,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.length() > 0)
+                if (newText.length() > 3)
                     btFind.setEnabled(true);
                 else
                     btFind.setEnabled(false);
@@ -99,10 +108,10 @@ public class ResultsFragment extends Fragment implements ResultsView,
             if (data.getTypedAnswer() instanceof ImageResponse) {
                 ImageResponse response = (ImageResponse) data.getTypedAnswer();
                 presenter.setAdapter(response.getItems());
-
+                recyclerView.setAdapter(presenter.getAdapter());
             }
         }
-        getLoaderManager().destroyLoader(id);
+//        getLoaderManager().destroyLoader(id);
         mQuery = null;
     }
 
@@ -140,5 +149,15 @@ public class ResultsFragment extends Fragment implements ResultsView,
                 break;
 
         }
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+/*        Log.d("TAG", String.valueOf((presenter.getAdapter() == null)));
+        if (recyclerView.getAdapter() == null) {
+            recyclerView.setAdapter(presenter.getAdapter());
+        }*/
     }
 }
