@@ -60,6 +60,8 @@ public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnIma
     @Override
     public void onImageClick(int position) {
         //TODO save photo to casche
+        resultsView.showFullScreenImage();
+        resultsView.showToast(String.valueOf(position));
     }
 
     public ImageAdapter getAdapter() {

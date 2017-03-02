@@ -16,11 +16,10 @@ public class MainPresenterIml implements MainPresenter {
 
     @Override
     public void onResultsTab() {
-        mainView.showResultsFragment();
     }
 
     @Override
     public void onFavoritesTab() {
-        mainView.showFavoritesFragment();
+
     }
 }

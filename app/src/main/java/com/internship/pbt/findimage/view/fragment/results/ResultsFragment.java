@@ -1,6 +1,7 @@
 package com.internship.pbt.findimage.view.fragment.results;
 
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,6 +25,7 @@ import com.internship.pbt.findimage.loader.ImageLoader;
 import com.internship.pbt.findimage.net.content.ImageResponse;
 import com.internship.pbt.findimage.net.response.Response;
 import com.internship.pbt.findimage.presentation.presenter.results.ResultsPresenterImp;
+import com.internship.pbt.findimage.view.activity.FullScreenActivity;
 
 /**
  * Created by user on 01.03.2017.
@@ -32,6 +34,7 @@ import com.internship.pbt.findimage.presentation.presenter.results.ResultsPresen
 public class ResultsFragment extends Fragment implements ResultsView,
         LoaderManager.LoaderCallbacks<Response>, View.OnClickListener {
 
+    private static final String IMAGE_FR_TAG = "IMAGE_FR_TAG";
     private ResultsPresenterImp presenter;
     private String mQuery;
     private Button btFind;
@@ -110,6 +113,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
                 response = (ImageResponse) data.getTypedAnswer();
                 presenter.setItems(response.getItems());
                 recyclerView.setAdapter(presenter.getAdapter());
+                btFind.setEnabled(false);
             }
         }
 //        getLoaderManager().destroyLoader(id);
@@ -138,7 +142,14 @@ public class ResultsFragment extends Fragment implements ResultsView,
 
     @Override
     public void showFullScreenImage() {
-
+        Intent intent = new Intent(getActivity(), FullScreenActivity.class);
+        startActivity(intent);
+     /*   ImageFragment fragment = new ImageFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_screen_container, fragment,
+                        IMAGE_FR_TAG)
+                .addToBackStack(null)
+                .commit();*/
     }
 
 
@@ -156,10 +167,10 @@ public class ResultsFragment extends Fragment implements ResultsView,
     public void onResume() {
 
         super.onResume();
-        Log.d("TAG", String.valueOf((presenter.getAdapter() == null)));
+        /*Log.d("TAG", String.valueOf((presenter.getAdapter() == null)));
         if (recyclerView.getAdapter() == null) {
             presenter.setItems(response.getItems());
             recyclerView.setAdapter(presenter.getAdapter());
-        }
+        }*/
     }
 }

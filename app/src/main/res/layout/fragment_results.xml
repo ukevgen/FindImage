@@ -10,10 +10,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="asdasd" />
 
     <Button
         android:id="@+id/find_image"
@@ -24,5 +20,6 @@
         android:layout_marginBottom="17dp"
         android:background="@color/cardSignBackground"
         android:enabled="false"
+        android:textColor="@color/cardview_light_background"
         android:text="@string/find_image" />
 </RelativeLayout>
