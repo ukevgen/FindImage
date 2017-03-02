@@ -5,4 +5,6 @@
     <color name="colorAccent">#ffffff</color>
 
     <color name="main_screen_background">#f7f7f9</color>
+
+    <color name="cardSignBackground">#327780</color>
 </resources>

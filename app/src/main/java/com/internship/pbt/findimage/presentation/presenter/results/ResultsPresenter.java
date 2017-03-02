@@ -5,4 +5,7 @@ package com.internship.pbt.findimage.presentation.presenter.results;
  */
 
 public interface ResultsPresenter {
+    void onFindImage();
+
+    void checkSearchRequest(String query);
 }

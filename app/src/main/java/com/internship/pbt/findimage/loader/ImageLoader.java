@@ -1,14 +1,15 @@
 package com.internship.pbt.findimage.loader;
 
 import android.content.Context;
-import android.database.Cursor;
 
+import com.internship.pbt.findimage.net.ApiConstants;
 import com.internship.pbt.findimage.net.RetrofitApi;
+import com.internship.pbt.findimage.net.content.ImageResponse;
+import com.internship.pbt.findimage.net.response.RequestResult;
 import com.internship.pbt.findimage.net.response.Response;
 import com.internship.pbt.findimage.net.services.SearchService;
 
 import java.io.IOException;
-import java.util.List;
 
 import retrofit2.Call;
 
@@ -30,7 +31,18 @@ public class ImageLoader extends BaseLoader {
         // TODO implement request like example
 
         SearchService service = RetrofitApi.getRetrofitApi().getSearchService();
-        Call<List<Object>> call = service.airports("as");
+        Call<ImageResponse> call = service.findImage(query,
+                ApiConstants.COUNT,
+                ApiConstants.CX,
+                ApiConstants.API_KEY,
+                ApiConstants.TYPE);
+
+        ImageResponse imageResponse = call.execute().body();
+
+        return new Response()
+                .setRequestResult(RequestResult.SUCCESS)
+                .setAnswer(imageResponse);
+
         /*AirportsService service = ApiFactory.getAirportsService();
         Call<List<Airport>> call = service.airports(mGps);
         List<Airport> airports = call.execute().body();
@@ -39,7 +51,6 @@ public class ImageLoader extends BaseLoader {
                 .setAnswer(airports);*/
 
 
-        return null;
     }
 }
 

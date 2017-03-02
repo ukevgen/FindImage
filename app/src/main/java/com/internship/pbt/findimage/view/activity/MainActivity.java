@@ -1,4 +1,4 @@
-package com.internship.pbt.findimage.view;
+package com.internship.pbt.findimage.view.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.internship.pbt.findimage.R;
 import com.internship.pbt.findimage.presentation.presenter.main.MainPresenterIml;
+import com.internship.pbt.findimage.view.MainView;
 import com.internship.pbt.findimage.view.fragment.favorites.FavoritesFragment;
 import com.internship.pbt.findimage.view.fragment.results.ResultsFragment;
 

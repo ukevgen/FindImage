@@ -5,4 +5,11 @@ package com.internship.pbt.findimage.view.fragment.results;
  */
 
 public interface ResultsView {
+    void findImage();
+
+    void checkContent();
+
+    void showToast(String msg);
+
+    void showFullScreenImage();
 }
