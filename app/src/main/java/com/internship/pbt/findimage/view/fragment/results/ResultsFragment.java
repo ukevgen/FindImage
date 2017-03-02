@@ -37,6 +37,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
     private Button btFind;
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
+    private ImageResponse response;
 
 
     @Nullable
@@ -106,7 +107,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
         int id = loader.getId();
         if (id == R.id.image_loader) {
             if (data.getTypedAnswer() instanceof ImageResponse) {
-                ImageResponse response = (ImageResponse) data.getTypedAnswer();
+                response = (ImageResponse) data.getTypedAnswer();
                 presenter.setItems(response.getItems());
                 recyclerView.setAdapter(presenter.getAdapter());
             }
@@ -157,7 +158,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
         super.onResume();
         Log.d("TAG", String.valueOf((presenter.getAdapter() == null)));
         if (recyclerView.getAdapter() == null) {
-            presenter.setAdapter();
+            presenter.setItems(response.getItems());
             recyclerView.setAdapter(presenter.getAdapter());
         }
     }
