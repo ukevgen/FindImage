@@ -58,10 +58,8 @@ public class ResultsFragment extends Fragment implements ResultsView,
         recyclerView = (RecyclerView) view.findViewById(R.id.image_container);
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
-        //recyclerView.setAdapter(presenter.getAdapter());
         btFind.setOnClickListener(this);
         setHasOptionsMenu(true);
-        //getActivity().getLoaderManager().initLoader(R.id.image_loader, null, this);
         return view;
     }
 
@@ -182,12 +180,6 @@ public class ResultsFragment extends Fragment implements ResultsView,
 
     @Override
     public void onResume() {
-
         super.onResume();
-        /*Log.d("TAG", String.valueOf((presenter.getAdapter() == null)));
-        if (recyclerView.getAdapter() == null) {
-            presenter.setItems(response.getItems());
-            recyclerView.setAdapter(presenter.getAdapter());
-        }*/
     }
 }

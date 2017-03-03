@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
     private MainPresenterIml presenter;
+    private ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
 
 
     @Override
@@ -37,39 +38,25 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
     }
 
     private void initViews() {
+        adapter.addFragment(new ResultsFragment(), "Results");
+        adapter.addFragment(new FavoritesFragment(), "Favorites");
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         mTabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        mTabLayout.setOnTabSelectedListener(this);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(mViewPager);
+        mViewPager.setAdapter(adapter);
         mViewPager.setOffscreenPageLimit(2);
         mTabLayout.setupWithViewPager(mViewPager);
-
-
-    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ResultsFragment(), "Results");
-        adapter.addFragment(new FavoritesFragment(), "Favorites");
-        viewPager.setAdapter(adapter);
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        int fragments = getSupportFragmentManager().getBackStackEntryCount();
-        if (fragments == 1) {
-            finish();
-            return;
-        }
-        super.onBackPressed();
     }
 
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        if (tab.getPosition() == 1) {
+            adapter.getItem(1).onResume();
+        }
 
     }
 

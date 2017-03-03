@@ -33,10 +33,6 @@ public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnIma
         adapter.setOnImageClickCallback(this);
     }
 
-    public void setImageResponse(ImageResponse imageResponse) {
-        this.imageResponse = imageResponse;
-    }
-
     public void setItems(List<Item> items) {
         this.items = items;
         setAdapter();

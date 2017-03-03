@@ -64,9 +64,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
     public void onBindViewHolder(final ImageHolder holder, int position) {
         final Item item = items.get(position);
         holder.setPosition(position);
-        // TODO src information about photo
-        //if (items.get(position).getPagemap() != null)
-        //    cseThumbnail = items.get(position).getPagemap().getCseThumbnail().get(0);
 
         Target target = new Target() {
             @Override
@@ -89,11 +86,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
                 .resize(50, 50)
                 .into(target);
 
-
-
-        /*BitmapDrawable drawable = (BitmapDrawable) holder.mImageView.getDrawable();
-        final Bitmap currentImage = drawable.getBitmap();*/
-
         String describe = item.getTitle();
         holder.mName.setText(describe);
 
@@ -108,7 +100,6 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
                     bitmaps.add(bitmap);
                 } else {
                     if (bitmap != null)
-                        // bitmaps.remove(bitmap);
                         removeFromSet(bitmap);
                 }
             }

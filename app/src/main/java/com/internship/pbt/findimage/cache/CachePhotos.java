@@ -25,8 +25,11 @@ public class CachePhotos {
     private String pathToPhotos;
 
     private CachePhotos(Context context) {
-        pathToPhotos = context.getCacheDir().getAbsolutePath()
+        /*pathToPhotos = context.getCacheDir().getAbsolutePath()
                 + File.separator + "mysearch" + File.separator;
+        new File(pathToPhotos).mkdirs();*/
+        pathToPhotos = android.os.Environment.getExternalStorageDirectory() + File.separator
+                + "mysearch" + File.separator;
         new File(pathToPhotos).mkdirs();
     }
 
@@ -45,7 +48,7 @@ public class CachePhotos {
 
     public ArrayList<String> getAllPhotosPath() {
         ArrayList<String> result = new ArrayList<>();
-        File file = new File(android.os.Environment.getExternalStorageDirectory(), "mysearch");
+        File file = new File(pathToPhotos);
         File[] listFile;
 
         if (file.isDirectory()) {
