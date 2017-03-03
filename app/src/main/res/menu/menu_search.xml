@@ -4,9 +4,11 @@
     tools:context=".MainActivity">
     <item
         android:id="@+id/action_search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="always|collapseActionView"
         android:icon="@android:drawable/ic_menu_search"
-        android:title="Search" />
-
+        android:title="Search"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always|collapseActionView" />
+    <item
+        android:id="@+id/add_favorites"
+        android:title="Add image to favorites" />
 </menu>

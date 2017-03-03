@@ -33,22 +33,12 @@
             app:tabTextColor="@android:color/white" />
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <FrameLayout
+        android:id="@+id/main_screen_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
-    </android.support.v4.view.ViewPager>
 
-    <android.support.design.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <FrameLayout
-            android:id="@+id/main_screen_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </android.support.design.widget.CoordinatorLayout>
+    </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

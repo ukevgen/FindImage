@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.internship.pbt.findimage.net.ApiConstants;
 import com.internship.pbt.findimage.net.RetrofitApi;
-import com.internship.pbt.findimage.net.content.ImageResponse;
+import com.internship.pbt.findimage.net.imgcontent.ImageResponse;
 import com.internship.pbt.findimage.net.response.RequestResult;
 import com.internship.pbt.findimage.net.response.Response;
 import com.internship.pbt.findimage.net.services.SearchService;
@@ -34,7 +34,8 @@ public class ImageLoader extends BaseLoader {
         Call<ImageResponse> call = service.findImage(query,
                 ApiConstants.COUNT,
                 ApiConstants.CX,
-                ApiConstants.API_KEY);
+                ApiConstants.API_KEY,
+                ApiConstants.TYPE);
 
         ImageResponse imageResponse = call.execute().body();
 

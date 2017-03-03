@@ -1,11 +1,11 @@
-/*
 
-package com.internship.pbt.findimage.net.content;
+package com.internship.pbt.findimage.net.imgcontent;
 
 import java.io.Serializable;
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.internship.pbt.findimage.net.content.*;
 
 public class ImageResponse implements Serializable
 {
@@ -21,14 +21,14 @@ public class ImageResponse implements Serializable
     private Queries queries;
     @SerializedName("context")
     @Expose
-    private Context context;
+    private com.internship.pbt.findimage.net.content.Context context;
     @SerializedName("searchInformation")
     @Expose
     private SearchInformation searchInformation;
     @SerializedName("items")
     @Expose
     private List<Item> items = null;
-    private final static long serialVersionUID = -8095719447512851658L;
+    private final static long serialVersionUID = -3301954705980571766L;
 
     public String getKind() {
         return kind;
@@ -54,11 +54,11 @@ public class ImageResponse implements Serializable
         this.queries = queries;
     }
 
-    public Context getContext() {
+    public com.internship.pbt.findimage.net.content.Context getContext() {
         return context;
     }
 
-    public void setContext(Context context) {
+    public void setContext(com.internship.pbt.findimage.net.content.Context context) {
         this.context = context;
     }
 
@@ -79,4 +79,3 @@ public class ImageResponse implements Serializable
     }
 
 }
-*/
