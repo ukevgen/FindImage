@@ -119,7 +119,8 @@ public class ResultsFragment extends Fragment implements ResultsView,
         if (id == R.id.image_loader) {
             if (data.getTypedAnswer() instanceof ImageResponse) {
                 response = (ImageResponse) data.getTypedAnswer();
-                presenter.setItems(response.getItems());
+                if (response.getItems() != null)
+                    presenter.setItems(response.getItems());
                 recyclerView.setAdapter(presenter.getAdapter());
                 btFind.setEnabled(false);
             }

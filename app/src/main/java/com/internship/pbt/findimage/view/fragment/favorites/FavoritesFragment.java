@@ -52,7 +52,8 @@ public class FavoritesFragment extends Fragment implements FavoritesView {
 
 
     private void checkPhoto() {
-        if (cachePhotos.getAllPhotosPath().size() != 0) {
+
+        if (cachePhotos.getAllPhotosPath() != null) {
             allPhotosPath = cachePhotos.getAllPhotosPath();
         }
     }
