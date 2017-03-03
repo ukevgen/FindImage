@@ -1,5 +1,5 @@
 
-package com.internship.pbt.findimage.net.imgcontent;
+package com.internship.pbt.findimage.net.content;
 
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;
@@ -20,7 +20,7 @@ public class SearchInformation implements Serializable
     @SerializedName("formattedTotalResults")
     @Expose
     private String formattedTotalResults;
-    private final static long serialVersionUID = 9181361206191290135L;
+    private final static long serialVersionUID = -5843977358216786257L;
 
     public Double getSearchTime() {
         return searchTime;

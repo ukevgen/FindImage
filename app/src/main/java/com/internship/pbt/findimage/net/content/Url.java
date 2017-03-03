@@ -1,5 +1,5 @@
 
-package com.internship.pbt.findimage.net.imgcontent;
+package com.internship.pbt.findimage.net.content;
 
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;
@@ -14,7 +14,7 @@ public class Url implements Serializable
     @SerializedName("template")
     @Expose
     private String template;
-    private final static long serialVersionUID = -8591267511380648131L;
+    private final static long serialVersionUID = -8102612417590889626L;
 
     public String getType() {
         return type;

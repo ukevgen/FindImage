@@ -1,5 +1,5 @@
 
-package com.internship.pbt.findimage.net.imgcontent;
+package com.internship.pbt.findimage.net.content;
 
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;
@@ -38,7 +38,7 @@ public class Request implements Serializable
     @SerializedName("searchType")
     @Expose
     private String searchType;
-    private final static long serialVersionUID = 5819749421686081521L;
+    private final static long serialVersionUID = 6357799040950233954L;
 
     public String getTitle() {
         return title;

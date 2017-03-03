@@ -14,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.internship.pbt.findimage.R;
-import com.internship.pbt.findimage.net.imgcontent.Item;
+import com.internship.pbt.findimage.net.content.Item;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 

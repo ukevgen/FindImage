@@ -1,6 +1,7 @@
 package com.internship.pbt.findimage.net.services;
 
-import com.internship.pbt.findimage.net.imgcontent.ImageResponse;
+
+import com.internship.pbt.findimage.net.content.ImageResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

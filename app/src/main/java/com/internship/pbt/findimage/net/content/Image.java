@@ -1,5 +1,5 @@
 
-package com.internship.pbt.findimage.net.imgcontent;
+package com.internship.pbt.findimage.net.content;
 
 import java.io.Serializable;
 import com.google.gson.annotations.Expose;
@@ -29,7 +29,7 @@ public class Image implements Serializable
     @SerializedName("thumbnailWidth")
     @Expose
     private Integer thumbnailWidth;
-    private final static long serialVersionUID = 7505548794847095645L;
+    private final static long serialVersionUID = -3689360093488991289L;
 
     public String getContextLink() {
         return contextLink;

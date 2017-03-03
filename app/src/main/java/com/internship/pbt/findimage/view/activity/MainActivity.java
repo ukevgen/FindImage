@@ -14,7 +14,8 @@ import com.internship.pbt.findimage.view.MainView;
 import com.internship.pbt.findimage.view.fragment.favorites.FavoritesFragment;
 import com.internship.pbt.findimage.view.fragment.results.ResultsFragment;
 
-public class MainActivity extends AppCompatActivity implements MainView, View.OnClickListener, TabLayout.OnTabSelectedListener {
+public class MainActivity extends AppCompatActivity implements MainView, View.OnClickListener,
+        TabLayout.OnTabSelectedListener {
 
     private static final String FR_TAG = "FV_TAG";
     private Toolbar mToolbar;

@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.internship.pbt.findimage.R;
 import com.internship.pbt.findimage.cache.CachePhotos;
 import com.internship.pbt.findimage.loader.ImageLoader;
-import com.internship.pbt.findimage.net.imgcontent.ImageResponse;
+import com.internship.pbt.findimage.net.content.ImageResponse;
 import com.internship.pbt.findimage.net.response.Response;
 import com.internship.pbt.findimage.presentation.presenter.results.ResultsPresenterImp;
 import com.internship.pbt.findimage.view.fragment.ImageFragment;

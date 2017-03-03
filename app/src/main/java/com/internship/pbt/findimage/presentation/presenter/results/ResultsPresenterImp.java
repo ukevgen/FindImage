@@ -4,8 +4,8 @@ import android.graphics.Bitmap;
 
 import com.internship.pbt.findimage.adapter.ImageAdapter;
 import com.internship.pbt.findimage.cache.CachePhotos;
-import com.internship.pbt.findimage.net.imgcontent.ImageResponse;
-import com.internship.pbt.findimage.net.imgcontent.Item;
+import com.internship.pbt.findimage.net.content.ImageResponse;
+import com.internship.pbt.findimage.net.content.Item;
 import com.internship.pbt.findimage.view.fragment.results.ResultsView;
 
 import java.util.ArrayList;
@@ -65,6 +65,7 @@ public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnIma
             for (Bitmap b : bitmaps) {
                 cachePhotos.savePhoto(b);
             }
+            resultsView.showToast("image added");
         }
     }
 

@@ -13,9 +13,10 @@
     </android.support.v7.widget.RecyclerView>
 
     <TextView
-        android:layout_below="@+id/favorites_recycler"
+        android:id="@+id/tt"
         android:layout_width="wrap_content"
-        android:text="asd"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/favorites_recycler"
+        android:text="asd" />
 
 </RelativeLayout>

@@ -1,10 +1,10 @@
 
-package com.internship.pbt.findimage.net.imgcontent;
-
-import java.io.Serializable;
+package com.internship.pbt.findimage.net.content;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 public class Item implements Serializable {
 
@@ -32,16 +32,15 @@ public class Item implements Serializable {
     @SerializedName("mime")
     @Expose
     private String mime;
-    @SerializedName("fileFormat")
-    @Expose
-    private String fileFormat;
     @SerializedName("image")
     @Expose
     private Image image;
+    @SerializedName("fileFormat")
+    @Expose
+    private String fileFormat;
 
     private boolean checked = false;
-
-    private final static long serialVersionUID = 268509410332887899L;
+    private final static long serialVersionUID = -47778820414660594L;
 
     public String getKind() {
         return kind;
@@ -107,14 +106,6 @@ public class Item implements Serializable {
         this.mime = mime;
     }
 
-    public String getFileFormat() {
-        return fileFormat;
-    }
-
-    public void setFileFormat(String fileFormat) {
-        this.fileFormat = fileFormat;
-    }
-
     public Image getImage() {
         return image;
     }
@@ -123,15 +114,19 @@ public class Item implements Serializable {
         this.image = image;
     }
 
+    public String getFileFormat() {
+        return fileFormat;
+    }
+
+    public void setFileFormat(String fileFormat) {
+        this.fileFormat = fileFormat;
+    }
+
     public boolean isChecked() {
         return checked;
     }
 
     public void setChecked(boolean checked) {
         this.checked = checked;
-    }
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
     }
 }

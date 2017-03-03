@@ -1,9 +1,10 @@
 
-package com.internship.pbt.findimage.net.imgcontent;
+package com.internship.pbt.findimage.net.content;
 
-import java.io.Serializable;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
 
 public class Context implements Serializable
 {
@@ -11,7 +12,7 @@ public class Context implements Serializable
     @SerializedName("title")
     @Expose
     private String title;
-    private final static long serialVersionUID = 6110195063576262580L;
+    private final static long serialVersionUID = -624726757615094298L;
 
     public String getTitle() {
         return title;

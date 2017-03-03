@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.internship.pbt.findimage.R;
 import com.internship.pbt.findimage.cache.CachePhotos;
@@ -36,7 +37,7 @@ public class FavoritesFragment extends Fragment implements FavoritesView {
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
         presenter = new FavoritesPresenterImp(this);
         cachePhotos = CachePhotos.getInstance(getContext());
-
+        TextView textView = (TextView) view.findViewById(R.id.tt);
         recyclerView = (RecyclerView) view.findViewById(R.id.favorites_recycler);
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -58,7 +59,7 @@ public class FavoritesFragment extends Fragment implements FavoritesView {
 
     private void setUrls() {
         presenter.setUrls(allPhotosPath);
-      //  recyclerView.setAdapter(presenter.getAdapter());
+        recyclerView.setAdapter(presenter.getAdapter());
     }
 
     @Override
