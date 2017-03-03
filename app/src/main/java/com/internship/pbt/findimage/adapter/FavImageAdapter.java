@@ -50,12 +50,12 @@ public class FavImageAdapter extends RecyclerView.Adapter<FavImageAdapter.VH> {
         holder.setPosition(position);
         String uri = urls.get(position);
         File f = new File(uri);
-        f.exists();
+
         Picasso.with(context)
                 .load(f)
                 .resize(100, 100)
                 .into(holder.mImageView);
-        Log.d("TAG","freat");
+        Log.d("TAG", "freat");
     }
 
     @Override

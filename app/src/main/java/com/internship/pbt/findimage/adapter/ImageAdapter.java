@@ -60,6 +60,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
         return new ImageHolder(v, this);
     }
 
+    public Bitmap getCurrentImage() {
+        return currentImage;
+    }
+
     @Override
     public void onBindViewHolder(final ImageHolder holder, int position) {
         final Item item = items.get(position);
@@ -152,7 +156,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
             mImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    adapter.currentImage = ((BitmapDrawable) mImageView.getDrawable()).getBitmap();
                     adapter.onImageClickCallback.onImageClick(position);
+
                 }
             });
         }

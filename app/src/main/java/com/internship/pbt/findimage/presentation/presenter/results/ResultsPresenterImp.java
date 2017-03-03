@@ -4,8 +4,9 @@ import android.graphics.Bitmap;
 
 import com.internship.pbt.findimage.adapter.ImageAdapter;
 import com.internship.pbt.findimage.cache.CachePhotos;
-import com.internship.pbt.findimage.net.content.ImageResponse;
+import com.internship.pbt.findimage.cache.CacheSharedPreferences;
 import com.internship.pbt.findimage.net.content.Item;
+import com.internship.pbt.findimage.util.Converter;
 import com.internship.pbt.findimage.view.fragment.results.ResultsView;
 
 import java.util.ArrayList;
@@ -19,15 +20,20 @@ import java.util.List;
 public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnImageClickCallback {
 
     private ResultsView resultsView;
-    private ImageResponse imageResponse;
     private ImageAdapter adapter;
     private List<Item> items;
     private CachePhotos cachePhotos;
+    private Converter converter;
+    private CacheSharedPreferences sharedPreferences;
 
 
-    public ResultsPresenterImp(ResultsView resultsView, CachePhotos cachePhotos) {
+    public ResultsPresenterImp(ResultsView resultsView, CachePhotos cachePhotos,
+                               CacheSharedPreferences sharedPreferences) {
         this.resultsView = resultsView;
         this.cachePhotos = cachePhotos;
+        this.sharedPreferences = sharedPreferences;
+
+        converter = new Converter(resultsView.geCurrentContext());
         items = new ArrayList<>();
         adapter = new ImageAdapter(items, resultsView.geCurrentContext());
         adapter.setOnImageClickCallback(this);
@@ -72,9 +78,10 @@ public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnIma
 
     @Override
     public void onImageClick(int position) {
-        //TODO save photo to casche
+        String encode = converter.encodeImageTobase64(adapter.getCurrentImage());
+        sharedPreferences.putStringImage(encode);
+
         resultsView.showFullScreenImage();
-        resultsView.showToast(String.valueOf(position));
     }
 
     public ImageAdapter getAdapter() {

@@ -1,5 +1,6 @@
 package com.internship.pbt.findimage.view.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
@@ -10,15 +11,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.internship.pbt.findimage.R;
-import com.squareup.picasso.Picasso;
+import com.internship.pbt.findimage.cache.CacheSharedPreferences;
+import com.internship.pbt.findimage.presentation.presenter.fullscreen.FullScreenPresenterImp;
+import com.internship.pbt.findimage.util.Converter;
 
 /**
  * Created by user on 01.03.2017.
  */
 
-public class FullScreenImageFragment extends DialogFragment {
+public class FullScreenImageFragment extends DialogFragment implements FullScreenView {
 
-    ImageView mImageView;
+    private ImageView mImageView;
+    private FullScreenPresenterImp presenter;
+    private DisplayMetrics displayMetrics;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,18 +40,33 @@ public class FullScreenImageFragment extends DialogFragment {
 
         mImageView = (ImageView) view.findViewById(R.id.full_screen_image);
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-        Picasso.with(getContext())
-                .load("asd")
-                .error(R.drawable.default_image)
-                .resize(width, height)
-                .into(mImageView);
+        presenter = new FullScreenPresenterImp(this,
+                CacheSharedPreferences.getInstance(getActivity()),
+                new Converter(getActivity()));
+
+        displayMetrics = getActivity().getResources().getDisplayMetrics();
 
         return view;
     }
 
 
+    @Override
+    public void showImage(Bitmap bitmap) {
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+        bitmap = Bitmap.createScaledBitmap(bitmap, width, height, false);
+        mImageView.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenter.onDestroy();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.getImage();
+    }
 }

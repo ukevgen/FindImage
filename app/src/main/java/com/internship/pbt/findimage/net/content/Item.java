@@ -4,40 +4,83 @@ package com.internship.pbt.findimage.net.content;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import org.greenrobot.greendao.annotation.Entity;
+import org.greenrobot.greendao.annotation.Generated;
+import org.greenrobot.greendao.annotation.Property;
+
 import java.io.Serializable;
 
+@Entity(nameInDb = "Images")
 public class Item implements Serializable {
 
+    @Property(nameInDb = "image_kind")
     @SerializedName("kind")
     @Expose
     private String kind;
+
+    @Property(nameInDb = "image_title")
     @SerializedName("title")
     @Expose
     private String title;
+
+    @Property(nameInDb = "image_htmlTitle")
     @SerializedName("htmlTitle")
     @Expose
     private String htmlTitle;
+
+    @Property(nameInDb = "image_link")
     @SerializedName("link")
     @Expose
     private String link;
+
+    @Property(nameInDb = "image_displayLink")
     @SerializedName("displayLink")
     @Expose
     private String displayLink;
+
+    @Property(nameInDb = "image_snippet")
     @SerializedName("snippet")
     @Expose
     private String snippet;
+
+    @Property(nameInDb = "image_htmlSnippet")
     @SerializedName("htmlSnippet")
     @Expose
     private String htmlSnippet;
+
+    @Property(nameInDb = "image_mime")
     @SerializedName("mime")
     @Expose
     private String mime;
+
+    @Property(nameInDb = "image_image")
     @SerializedName("image")
     @Expose
     private Image image;
+
+    @Property(nameInDb = "image_fileFormat")
     @SerializedName("fileFormat")
     @Expose
     private String fileFormat;
+
+    @Generated()
+    public Item(String kind, String title, String htmlTitle, String link, String displayLink,
+                String snippet, String htmlSnippet, String mime, Image image, String fileFormat) {
+        this.kind = kind;
+        this.title = title;
+        this.htmlTitle = htmlTitle;
+        this.link = link;
+        this.displayLink = displayLink;
+        this.snippet = snippet;
+        this.htmlSnippet = htmlSnippet;
+        this.mime = mime;
+        this.image = image;
+        this.fileFormat = fileFormat;
+    }
+
+    @Generated()
+    public Item() {
+    }
 
     private boolean checked = false;
     private final static long serialVersionUID = -47778820414660594L;

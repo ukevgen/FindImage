@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.internship.pbt.findimage.R;
 import com.internship.pbt.findimage.cache.CachePhotos;
+import com.internship.pbt.findimage.cache.CacheSharedPreferences;
 import com.internship.pbt.findimage.loader.ImageLoader;
 import com.internship.pbt.findimage.net.content.ImageResponse;
 import com.internship.pbt.findimage.net.response.Response;
@@ -51,7 +52,10 @@ public class ResultsFragment extends Fragment implements ResultsView,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_results, container, false);
-        presenter = new ResultsPresenterImp(this, CachePhotos.getInstance(getContext()));
+        presenter = new ResultsPresenterImp(this,
+                CachePhotos.getInstance(getContext()),
+                CacheSharedPreferences.getInstance(getContext()));
+
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         btFind = (Button) view.findViewById(R.id.find_image);
@@ -119,9 +123,10 @@ public class ResultsFragment extends Fragment implements ResultsView,
         if (id == R.id.image_loader) {
             if (data.getTypedAnswer() instanceof ImageResponse) {
                 response = (ImageResponse) data.getTypedAnswer();
-                if (response.getItems() != null)
+                if (response.getItems() != null) {
                     presenter.setItems(response.getItems());
-                recyclerView.setAdapter(presenter.getAdapter());
+                    recyclerView.setAdapter(presenter.getAdapter());
+                }
                 btFind.setEnabled(false);
             }
         }

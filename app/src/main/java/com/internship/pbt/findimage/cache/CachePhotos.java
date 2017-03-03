@@ -64,7 +64,6 @@ public class CachePhotos {
         BitmapFactory.Options opt = new BitmapFactory.Options();
         opt.inSampleSize = 8;
         String uuid = UUID.randomUUID().toString();
-        //Bitmap result = BitmapFactory.decodeStream(responseBody.byteStream(), null, opt);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
 
