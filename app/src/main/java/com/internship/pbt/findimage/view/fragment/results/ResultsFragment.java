@@ -1,7 +1,7 @@
 package com.internship.pbt.findimage.view.fragment.results;
 
 import android.app.LoaderManager;
-import android.content.Intent;
+import android.content.Context;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -18,14 +18,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.internship.pbt.findimage.R;
+import com.internship.pbt.findimage.cache.CachePhotos;
 import com.internship.pbt.findimage.loader.ImageLoader;
-import com.internship.pbt.findimage.net.content.ImageResponse;
+import com.internship.pbt.findimage.net.imgcontent.ImageResponse;
 import com.internship.pbt.findimage.net.response.Response;
 import com.internship.pbt.findimage.presentation.presenter.results.ResultsPresenterImp;
-import com.internship.pbt.findimage.view.activity.FullScreenActivity;
+import com.internship.pbt.findimage.view.fragment.ImageFragment;
 
 /**
  * Created by user on 01.03.2017.
@@ -38,6 +40,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
     private ResultsPresenterImp presenter;
     private String mQuery;
     private Button btFind;
+    private ProgressBar mProgressBar;
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
     private ImageResponse response;
@@ -48,7 +51,8 @@ public class ResultsFragment extends Fragment implements ResultsView,
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_results, container, false);
-        presenter = new ResultsPresenterImp(this);
+        presenter = new ResultsPresenterImp(this, CachePhotos.getInstance(getContext()));
+        mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
 
         btFind = (Button) view.findViewById(R.id.find_image);
         recyclerView = (RecyclerView) view.findViewById(R.id.image_container);
@@ -94,6 +98,12 @@ public class ResultsFragment extends Fragment implements ResultsView,
         });
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.add_favorites)
+            presenter.addImageToFavorites();
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     public Loader<Response> onCreateLoader(int id, Bundle args) {
@@ -116,6 +126,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
                 btFind.setEnabled(false);
             }
         }
+        mProgressBar.setVisibility(View.INVISIBLE);
 //        getLoaderManager().destroyLoader(id);
         mQuery = null;
     }
@@ -128,6 +139,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
     @Override
     public void findImage() {
         getActivity().getLoaderManager().initLoader(R.id.image_loader, null, this);
+        mProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -142,14 +154,19 @@ public class ResultsFragment extends Fragment implements ResultsView,
 
     @Override
     public void showFullScreenImage() {
-        Intent intent = new Intent(getActivity(), FullScreenActivity.class);
-        startActivity(intent);
-     /*   ImageFragment fragment = new ImageFragment();
+       /* Intent intent = new Intent(getActivity(), FullScreenActivity.class);
+        startActivity(intent);*/
+        ImageFragment fragment = new ImageFragment();
         getActivity().getSupportFragmentManager().beginTransaction()
                 .replace(R.id.main_screen_container, fragment,
                         IMAGE_FR_TAG)
                 .addToBackStack(null)
-                .commit();*/
+                .commit();
+    }
+
+    @Override
+    public Context geCurrentContext() {
+        return this.getContext();
     }
 
 

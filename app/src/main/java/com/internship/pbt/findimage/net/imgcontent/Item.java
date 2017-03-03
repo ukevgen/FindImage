@@ -1,13 +1,12 @@
-/*
 
-package com.internship.pbt.findimage.net.content;
+package com.internship.pbt.findimage.net.imgcontent;
 
 import java.io.Serializable;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Item implements Serializable
-{
+public class Item implements Serializable {
 
     @SerializedName("kind")
     @Expose
@@ -30,19 +29,19 @@ public class Item implements Serializable
     @SerializedName("htmlSnippet")
     @Expose
     private String htmlSnippet;
-    @SerializedName("cacheId")
+    @SerializedName("mime")
     @Expose
-    private String cacheId;
-    @SerializedName("formattedUrl")
+    private String mime;
+    @SerializedName("fileFormat")
     @Expose
-    private String formattedUrl;
-    @SerializedName("htmlFormattedUrl")
+    private String fileFormat;
+    @SerializedName("image")
     @Expose
-    private String htmlFormattedUrl;
-    @SerializedName("pagemap")
-    @Expose
-    private Pagemap pagemap;
-    private final static long serialVersionUID = 1855258569893060103L;
+    private Image image;
+
+    private boolean checked = false;
+
+    private final static long serialVersionUID = 268509410332887899L;
 
     public String getKind() {
         return kind;
@@ -100,37 +99,39 @@ public class Item implements Serializable
         this.htmlSnippet = htmlSnippet;
     }
 
-    public String getCacheId() {
-        return cacheId;
+    public String getMime() {
+        return mime;
     }
 
-    public void setCacheId(String cacheId) {
-        this.cacheId = cacheId;
+    public void setMime(String mime) {
+        this.mime = mime;
     }
 
-    public String getFormattedUrl() {
-        return formattedUrl;
+    public String getFileFormat() {
+        return fileFormat;
     }
 
-    public void setFormattedUrl(String formattedUrl) {
-        this.formattedUrl = formattedUrl;
+    public void setFileFormat(String fileFormat) {
+        this.fileFormat = fileFormat;
     }
 
-    public String getHtmlFormattedUrl() {
-        return htmlFormattedUrl;
+    public Image getImage() {
+        return image;
     }
 
-    public void setHtmlFormattedUrl(String htmlFormattedUrl) {
-        this.htmlFormattedUrl = htmlFormattedUrl;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
-    public Pagemap getPagemap() {
-        return pagemap;
+    public boolean isChecked() {
+        return checked;
     }
 
-    public void setPagemap(Pagemap pagemap) {
-        this.pagemap = pagemap;
+    public void setChecked(boolean checked) {
+        this.checked = checked;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 }
-*/

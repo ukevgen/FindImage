@@ -8,4 +8,6 @@ public interface ResultsPresenter {
     void onFindImage();
 
     void checkSearchRequest(String query);
+
+    void addImageToFavorites();
 }

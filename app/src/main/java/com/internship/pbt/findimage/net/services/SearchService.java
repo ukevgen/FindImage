@@ -1,6 +1,6 @@
 package com.internship.pbt.findimage.net.services;
 
-import com.internship.pbt.findimage.net.content.ImageResponse;
+import com.internship.pbt.findimage.net.imgcontent.ImageResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -18,6 +18,7 @@ public interface SearchService {
     Call<ImageResponse> findImage(@Query("q") String q,
                                   @Query("num") String count,
                                   @Query("cx") String cx,
-                                  @Query("key") String api_key);
+                                  @Query("key") String api_key,
+                                  @Query("searchType") String searchType);
 
 }
