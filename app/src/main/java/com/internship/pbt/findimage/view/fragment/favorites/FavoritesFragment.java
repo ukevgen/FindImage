@@ -1,5 +1,6 @@
 package com.internship.pbt.findimage.view.fragment.favorites;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,7 +14,6 @@ import com.internship.pbt.findimage.cache.CachePhotos;
 import com.internship.pbt.findimage.presentation.presenter.favorites.FavoritesPresenterImp;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by user on 01.03.2017.
@@ -49,5 +49,17 @@ public class FavoritesFragment extends Fragment implements FavoritesView {
         for (String s : allPhotosPath) {
             Log.d("TAG", s);
         }
+    }
+
+    @Override
+    public void onResume() {
+        Log.d("TAG","resume");
+        super.onResume();
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        Log.d("TAG","resume");
+        super.onAttach(context);
     }
 }

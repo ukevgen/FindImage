@@ -6,4 +6,5 @@ package com.internship.pbt.findimage.view;
 
 public interface MainView {
 
+    void showFavoritesFragment();
 }

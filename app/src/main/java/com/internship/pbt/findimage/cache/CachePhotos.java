@@ -3,6 +3,7 @@ package com.internship.pbt.findimage.cache;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,10 +13,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
-
-import okhttp3.ResponseBody;
 
 /**
  * Created by user on 03.03.2017.
@@ -92,6 +90,7 @@ public class CachePhotos {
             if (inputStream != null)
                 inputStream.close();
         } catch (IOException e) {
+            Log.d("TAG", e.getLocalizedMessage());
             e.printStackTrace();
         }
     }

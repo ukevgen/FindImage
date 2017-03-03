@@ -3,6 +3,7 @@ package com.internship.pbt.findimage.adapter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,8 +16,10 @@ import android.widget.TextView;
 import com.internship.pbt.findimage.R;
 import com.internship.pbt.findimage.net.imgcontent.Item;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -58,20 +61,38 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
     }
 
     @Override
-    public void onBindViewHolder(ImageHolder holder, int position) {
+    public void onBindViewHolder(final ImageHolder holder, int position) {
         final Item item = items.get(position);
         holder.setPosition(position);
         // TODO src information about photo
         //if (items.get(position).getPagemap() != null)
         //    cseThumbnail = items.get(position).getPagemap().getCseThumbnail().get(0);
+
+        Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                holder.mImageView.setImageBitmap(bitmap);
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+            }
+        };
         Picasso.with(context)
                 .load(item.getLink())
                 .error(R.drawable.default_image)
                 .resize(50, 50)
-                .into(holder.mImageView);
+                .into(target);
 
-        BitmapDrawable drawable = (BitmapDrawable) holder.mImageView.getDrawable();
-        final Bitmap currentImage = drawable.getBitmap();
+
+
+        /*BitmapDrawable drawable = (BitmapDrawable) holder.mImageView.getDrawable();
+        final Bitmap currentImage = drawable.getBitmap();*/
 
         String describe = item.getTitle();
         holder.mName.setText(describe);
@@ -82,12 +103,26 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 item.setChecked(isChecked);
-                if (item.isChecked())
-                    bitmaps.add(currentImage);
-                else
-                    bitmaps.remove(currentImage);
+                Bitmap bitmap = ((BitmapDrawable) holder.getmImageView().getDrawable()).getBitmap();
+                if (item.isChecked()) {
+                    bitmaps.add(bitmap);
+                } else {
+                    if (bitmap != null)
+                        // bitmaps.remove(bitmap);
+                        removeFromSet(bitmap);
+                }
             }
         });
+
+    }
+
+    private void removeFromSet(Bitmap bitmap) {
+        Iterator<Bitmap> iterator = bitmaps.iterator();
+        while (iterator.hasNext()) {
+            Bitmap element = iterator.next();
+            if (bitmap.equals(element))
+                iterator.remove();
+        }
 
     }
 
@@ -135,6 +170,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageHolder>
         public ImageHolder setPosition(int position) {
             this.position = position;
             return this;
+        }
+
+        public ImageView getmImageView() {
+            return mImageView;
         }
 
         public void setItem(Item item) {

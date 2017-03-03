@@ -20,6 +20,6 @@ public class MainPresenterIml implements MainPresenter {
 
     @Override
     public void onFavoritesTab() {
-
+        mainView.showFavoritesFragment();
     }
 }
