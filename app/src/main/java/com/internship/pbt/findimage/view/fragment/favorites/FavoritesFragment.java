@@ -44,6 +44,8 @@ public class FavoritesFragment extends Fragment implements FavoritesView {
     }
 
 
+    public void test(){}
+
     private void chekPhoto() {
         ArrayList<String> allPhotosPath = cachePhotos.getAllPhotosPath();
         for (String s : allPhotosPath) {
@@ -59,7 +61,19 @@ public class FavoritesFragment extends Fragment implements FavoritesView {
 
     @Override
     public void onAttach(Context context) {
-        Log.d("TAG","resume");
+        Log.d("TAG","attach");
         super.onAttach(context);
+    }
+
+    @Override
+    public void onPause() {
+        Log.d("TAG","pause");
+        super.onPause();
+    }
+
+    @Override
+    public void onAttachFragment(Fragment childFragment) {
+        Log.d("TAG","pause");
+        super.onAttachFragment(childFragment);
     }
 }
