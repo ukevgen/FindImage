@@ -3,9 +3,9 @@ package com.internship.pbt.findimage.presentation.presenter.results;
 import com.internship.pbt.findimage.adapter.ImageAdapter;
 import com.internship.pbt.findimage.net.content.ImageResponse;
 import com.internship.pbt.findimage.net.content.Item;
-import com.internship.pbt.findimage.net.response.RequestResult;
 import com.internship.pbt.findimage.view.fragment.results.ResultsView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,20 +17,31 @@ public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnIma
     private ResultsView resultsView;
     private ImageResponse imageResponse;
     private ImageAdapter adapter;
+    private List<Item> items;
 
 
     public ResultsPresenterImp(ResultsView resultsView) {
         this.resultsView = resultsView;
-        adapter = new ImageAdapter();
+        items = new ArrayList<>();
+        adapter = new ImageAdapter(items);
+        adapter.setOnImageClickCallback(this);
     }
 
     public void setImageResponse(ImageResponse imageResponse) {
         this.imageResponse = imageResponse;
     }
 
-    public void setAdapter(List<Item> items) {
-        adapter.setItems(items);
+    public void setItems(List<Item> items) {
+        this.items = items;
+        setAdapter();
     }
+
+
+    public void setAdapter() {
+        adapter.setItems(items);
+        adapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public void onFindImage() {
@@ -49,5 +60,11 @@ public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnIma
     @Override
     public void onImageClick(int position) {
         //TODO save photo to casche
+        resultsView.showFullScreenImage();
+        resultsView.showToast(String.valueOf(position));
+    }
+
+    public ImageAdapter getAdapter() {
+        return adapter;
     }
 }

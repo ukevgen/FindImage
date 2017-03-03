@@ -30,27 +30,17 @@ public class ImageLoader extends BaseLoader {
     protected Response apiCall() throws IOException {
         // TODO implement request like example
 
-        SearchService service = RetrofitApi.getRetrofitApi().getSearchService();
+        SearchService service = RetrofitApi.getSerchService();
         Call<ImageResponse> call = service.findImage(query,
                 ApiConstants.COUNT,
                 ApiConstants.CX,
-                ApiConstants.API_KEY,
-                ApiConstants.TYPE);
+                ApiConstants.API_KEY);
 
         ImageResponse imageResponse = call.execute().body();
 
         return new Response()
                 .setRequestResult(RequestResult.SUCCESS)
                 .setAnswer(imageResponse);
-
-        /*AirportsService service = ApiFactory.getAirportsService();
-        Call<List<Airport>> call = service.airports(mGps);
-        List<Airport> airports = call.execute().body();
-        return new AirportsResponse()
-                .setRequestResult(RequestResult.SUCCESS)
-                .setAnswer(airports);*/
-
-
     }
 }
 

@@ -1,12 +1,14 @@
 package com.internship.pbt.findimage.view.fragment.results;
 
 import android.app.LoaderManager;
+import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
-
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import com.internship.pbt.findimage.loader.ImageLoader;
 import com.internship.pbt.findimage.net.content.ImageResponse;
 import com.internship.pbt.findimage.net.response.Response;
 import com.internship.pbt.findimage.presentation.presenter.results.ResultsPresenterImp;
+import com.internship.pbt.findimage.view.activity.FullScreenActivity;
 
 /**
  * Created by user on 01.03.2017.
@@ -31,9 +34,13 @@ import com.internship.pbt.findimage.presentation.presenter.results.ResultsPresen
 public class ResultsFragment extends Fragment implements ResultsView,
         LoaderManager.LoaderCallbacks<Response>, View.OnClickListener {
 
+    private static final String IMAGE_FR_TAG = "IMAGE_FR_TAG";
     private ResultsPresenterImp presenter;
     private String mQuery;
     private Button btFind;
+    private RecyclerView recyclerView;
+    private LinearLayoutManager mLayoutManager;
+    private ImageResponse response;
 
 
     @Nullable
@@ -42,7 +49,13 @@ public class ResultsFragment extends Fragment implements ResultsView,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_results, container, false);
         presenter = new ResultsPresenterImp(this);
+
         btFind = (Button) view.findViewById(R.id.find_image);
+        recyclerView = (RecyclerView) view.findViewById(R.id.image_container);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+        //recyclerView.setAdapter(presenter.getAdapter());
+        btFind.setOnClickListener(this);
         setHasOptionsMenu(true);
         //getActivity().getLoaderManager().initLoader(R.id.image_loader, null, this);
         return view;
@@ -70,7 +83,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.length() > 0)
+                if (newText.length() > 3)
                     btFind.setEnabled(true);
                 else
                     btFind.setEnabled(false);
@@ -97,12 +110,13 @@ public class ResultsFragment extends Fragment implements ResultsView,
         int id = loader.getId();
         if (id == R.id.image_loader) {
             if (data.getTypedAnswer() instanceof ImageResponse) {
-                ImageResponse response = (ImageResponse) data.getTypedAnswer();
-                presenter.setAdapter(response.getItems());
-
+                response = (ImageResponse) data.getTypedAnswer();
+                presenter.setItems(response.getItems());
+                recyclerView.setAdapter(presenter.getAdapter());
+                btFind.setEnabled(false);
             }
         }
-        getLoaderManager().destroyLoader(id);
+//        getLoaderManager().destroyLoader(id);
         mQuery = null;
     }
 
@@ -128,7 +142,14 @@ public class ResultsFragment extends Fragment implements ResultsView,
 
     @Override
     public void showFullScreenImage() {
-
+        Intent intent = new Intent(getActivity(), FullScreenActivity.class);
+        startActivity(intent);
+     /*   ImageFragment fragment = new ImageFragment();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.main_screen_container, fragment,
+                        IMAGE_FR_TAG)
+                .addToBackStack(null)
+                .commit();*/
     }
 
 
@@ -140,5 +161,16 @@ public class ResultsFragment extends Fragment implements ResultsView,
                 break;
 
         }
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        /*Log.d("TAG", String.valueOf((presenter.getAdapter() == null)));
+        if (recyclerView.getAdapter() == null) {
+            presenter.setItems(response.getItems());
+            recyclerView.setAdapter(presenter.getAdapter());
+        }*/
     }
 }
