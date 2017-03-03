@@ -11,4 +11,7 @@
     <item
         android:id="@+id/add_favorites"
         android:title="Add image to favorites" />
+    <item
+        android:id="@+id/save_to_database"
+        android:title="Save results in db" />
 </menu>

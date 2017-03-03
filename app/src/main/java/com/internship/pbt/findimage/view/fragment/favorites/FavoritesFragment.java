@@ -9,9 +9,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.internship.pbt.findimage.R;
+import com.internship.pbt.findimage.adapter.FavImageAdapter;
 import com.internship.pbt.findimage.cache.CachePhotos;
 import com.internship.pbt.findimage.presentation.presenter.favorites.FavoritesPresenterImp;
 
@@ -28,6 +28,7 @@ public class FavoritesFragment extends Fragment implements FavoritesView {
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
     private List<String> allPhotosPath;
+    private FavImageAdapter adapter;
 
     @Nullable
     @Override
@@ -37,7 +38,7 @@ public class FavoritesFragment extends Fragment implements FavoritesView {
         View view = inflater.inflate(R.layout.fragment_favorites, container, false);
         presenter = new FavoritesPresenterImp(this);
         cachePhotos = CachePhotos.getInstance(getContext());
-        TextView textView = (TextView) view.findViewById(R.id.tt);
+
         recyclerView = (RecyclerView) view.findViewById(R.id.favorites_recycler);
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
@@ -53,7 +54,7 @@ public class FavoritesFragment extends Fragment implements FavoritesView {
 
     private void checkPhoto() {
 
-        if (cachePhotos.getAllPhotosPath() != null) {
+        if (cachePhotos != null) {
             allPhotosPath = cachePhotos.getAllPhotosPath();
         }
     }
@@ -70,10 +71,6 @@ public class FavoritesFragment extends Fragment implements FavoritesView {
         setUrls();
     }
 
-    @Override
-    public void onAttachFragment(Fragment childFragment) {
-        super.onAttachFragment(childFragment);
-    }
 
     @Override
     public Context geCurrentContext() {

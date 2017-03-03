@@ -27,7 +27,7 @@ import com.internship.pbt.findimage.loader.ImageLoader;
 import com.internship.pbt.findimage.net.content.ImageResponse;
 import com.internship.pbt.findimage.net.response.Response;
 import com.internship.pbt.findimage.presentation.presenter.results.ResultsPresenterImp;
-import com.internship.pbt.findimage.view.fragment.ImageFragment;
+import com.internship.pbt.findimage.view.fragment.FullScreenImageFragment;
 
 /**
  * Created by user on 01.03.2017.
@@ -153,14 +153,8 @@ public class ResultsFragment extends Fragment implements ResultsView,
 
     @Override
     public void showFullScreenImage() {
-       /* Intent intent = new Intent(getActivity(), FullScreenActivity.class);
-        startActivity(intent);*/
-        ImageFragment fragment = new ImageFragment();
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.main_screen_container, fragment,
-                        IMAGE_FR_TAG)
-                .addToBackStack(null)
-                .commit();
+        FullScreenImageFragment fragment = new FullScreenImageFragment();
+        fragment.show(getFragmentManager(), "Image");
     }
 
     @Override

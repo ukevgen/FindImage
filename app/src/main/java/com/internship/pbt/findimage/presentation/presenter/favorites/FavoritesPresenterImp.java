@@ -17,9 +17,9 @@ public class FavoritesPresenterImp implements FavoritesPresenter {
     private List<String> urls;
 
     public FavoritesPresenterImp(FavoritesView favoritesView) {
-        urls = new ArrayList<>();
-        adapter = new FavImageAdapter(urls, favoritesView.geCurrentContext());
         this.favoritesView = favoritesView;
+        urls = new ArrayList<>();
+        adapter = new FavImageAdapter(favoritesView.geCurrentContext());
     }
 
     public void setUrls(List<String> urls) {
