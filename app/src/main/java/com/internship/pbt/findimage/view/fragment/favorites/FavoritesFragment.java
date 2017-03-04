@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.internship.pbt.findimage.R;
-import com.internship.pbt.findimage.adapter.FavImageAdapter;
 import com.internship.pbt.findimage.cache.CachePhotos;
 import com.internship.pbt.findimage.presentation.presenter.favorites.FavoritesPresenterImp;
 
@@ -28,7 +27,6 @@ public class FavoritesFragment extends Fragment implements FavoritesView {
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
     private List<String> allPhotosPath;
-    private FavImageAdapter adapter;
 
     @Nullable
     @Override

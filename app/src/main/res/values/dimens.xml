@@ -5,4 +5,5 @@
     <dimen name="image_size_main">50dp</dimen>
     <dimen name="sing_up_element_width">216dp</dimen>
     <dimen name="sing_up_element_height">48dp</dimen>
+    <dimen name="tablayout_height">55dp</dimen>
 </resources>

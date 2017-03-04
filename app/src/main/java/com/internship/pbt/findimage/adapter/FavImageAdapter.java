@@ -2,12 +2,10 @@ package com.internship.pbt.findimage.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.internship.pbt.findimage.R;
 import com.squareup.picasso.Picasso;
@@ -53,26 +51,23 @@ public class FavImageAdapter extends RecyclerView.Adapter<FavImageAdapter.VH> {
 
         Picasso.with(context)
                 .load(f)
-                .resize(100, 100)
+                .resize(200, 200)
                 .into(holder.mImageView);
-        Log.d("TAG", "freat");
     }
 
     @Override
     public int getItemCount() {
-        return urls.size();
+        return urls == null ? 0 : urls.size();
     }
 
     public static class VH extends RecyclerView.ViewHolder {
 
         int position;
         ImageView mImageView;
-        TextView textView;
 
         public VH(View itemView) {
             super(itemView);
             mImageView = (ImageView) itemView.findViewById(R.id.fav_image);
-            textView = (TextView) itemView.findViewById(R.id.text);
         }
 
         public VH setPosition(int position) {

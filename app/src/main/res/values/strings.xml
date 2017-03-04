@@ -3,4 +3,7 @@
     <string name="tab_to_start_find_image">Tab to start find imageResponse</string>
     <string name="action_search">find_image</string>
     <string name="find_image">Find image</string>
+    <string name="results_fragment_title">Results</string>
+    <string name="favorites_fragment_title">Favorites</string>
+    <string name="incorrectly_request">Incorrectly request</string>
 </resources>

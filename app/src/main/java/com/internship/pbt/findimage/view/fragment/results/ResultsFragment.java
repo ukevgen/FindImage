@@ -10,7 +10,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,14 +36,13 @@ import com.internship.pbt.findimage.view.fragment.FullScreenImageFragment;
 public class ResultsFragment extends Fragment implements ResultsView,
         LoaderManager.LoaderCallbacks<Response>, View.OnClickListener {
 
-    private static final String IMAGE_FR_TAG = "IMAGE_FR_TAG";
     private ResultsPresenterImp presenter;
-    private String mQuery;
     private Button btFind;
     private ProgressBar mProgressBar;
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
     private ImageResponse response;
+    private SearchView search;
 
 
     @Nullable
@@ -77,24 +75,26 @@ public class ResultsFragment extends Fragment implements ResultsView,
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search, menu);
         MenuItem searchViewItem = menu.findItem(R.id.action_search);
-        final SearchView searchViewAndroidActionBar = (SearchView) MenuItemCompat.getActionView(searchViewItem);
-        searchViewAndroidActionBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        search = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchViewAndroidActionBar.clearFocus();
-                mQuery = null;
-                btFind.setEnabled(true);
+                search.clearFocus();
+                mProgressBar.setVisibility(View.INVISIBLE);
+                btFind.setBackgroundColor(getResources().getColor(R.color.separator));
                 return true;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                if (newText.length() > 3)
+                if (newText.length() > 1) {
+                    btFind.setBackgroundColor(getResources().getColor(R.color.cardSignBackground));
                     btFind.setEnabled(true);
-                else
+                } else {
+                    btFind.setBackgroundColor(getResources().getColor(R.color.separator));
                     btFind.setEnabled(false);
-                mQuery = newText;
-                Log.d("TAG", newText);
+                }
                 return false;
             }
         });
@@ -111,7 +111,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
     public Loader<Response> onCreateLoader(int id, Bundle args) {
         switch (id) {
             case R.id.image_loader:
-                return new ImageLoader(getContext(), mQuery);
+                return new ImageLoader(getContext(), String.valueOf(search.getQuery()));
             default:
                 return null;
         }
@@ -126,18 +126,18 @@ public class ResultsFragment extends Fragment implements ResultsView,
                 if (response.getItems() != null) {
                     presenter.setItems(response.getItems());
                     recyclerView.setAdapter(presenter.getAdapter());
+                } else {
+                    Toast.makeText(getContext(), getString(R.string.incorrectly_request),
+                            Toast.LENGTH_SHORT).show();
                 }
-                btFind.setEnabled(false);
             }
         }
         mProgressBar.setVisibility(View.INVISIBLE);
-//        getLoaderManager().destroyLoader(id);
-        mQuery = null;
+        getActivity().getLoaderManager().destroyLoader(id);
     }
 
     @Override
     public void onLoaderReset(Loader<Response> loader) {
-        getActivity().getLoaderManager().restartLoader(R.id.image_loader, null, this);
     }
 
     @Override
@@ -148,12 +148,12 @@ public class ResultsFragment extends Fragment implements ResultsView,
 
     @Override
     public void checkContent() {
-        presenter.checkSearchRequest(mQuery);
+        presenter.checkSearchRequest(String.valueOf(search.getQuery()));
     }
 
     @Override
     public void showToast(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG);
+        Toast.makeText(getContext(), msg, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -179,7 +179,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onDestroy() {
+        super.onDestroy();
     }
 }
