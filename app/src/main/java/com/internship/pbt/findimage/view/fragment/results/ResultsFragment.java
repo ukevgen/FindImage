@@ -10,6 +10,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,7 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.internship.pbt.findimage.R;
@@ -42,7 +45,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
     private RecyclerView recyclerView;
     private LinearLayoutManager mLayoutManager;
     private ImageResponse response;
-    private SearchView search;
+    private SearchView mSearch;
 
 
     @Nullable
@@ -60,6 +63,18 @@ public class ResultsFragment extends Fragment implements ResultsView,
         recyclerView = (RecyclerView) view.findViewById(R.id.image_container);
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
+
+        EditText editText = (EditText) view.findViewById(R.id.keyboard_search);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == event.KEYCODE_SEARCH) {
+                    checkContent();
+                    return true;
+                }
+                return false;
+            }
+        });
         btFind.setOnClickListener(this);
         setHasOptionsMenu(true);
         return view;
@@ -75,14 +90,12 @@ public class ResultsFragment extends Fragment implements ResultsView,
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_search, menu);
         MenuItem searchViewItem = menu.findItem(R.id.action_search);
-        search = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+        mSearch = (SearchView) MenuItemCompat.getActionView(searchViewItem);
 
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                search.clearFocus();
-                mProgressBar.setVisibility(View.INVISIBLE);
-                btFind.setBackgroundColor(getResources().getColor(R.color.separator));
+                checkContent();
                 return true;
             }
 
@@ -111,7 +124,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
     public Loader<Response> onCreateLoader(int id, Bundle args) {
         switch (id) {
             case R.id.image_loader:
-                return new ImageLoader(getContext(), String.valueOf(search.getQuery()));
+                return new ImageLoader(getContext(), String.valueOf(mSearch.getQuery()));
             default:
                 return null;
         }
@@ -148,7 +161,7 @@ public class ResultsFragment extends Fragment implements ResultsView,
 
     @Override
     public void checkContent() {
-        presenter.checkSearchRequest(String.valueOf(search.getQuery()));
+        presenter.checkSearchRequest(String.valueOf(mSearch.getQuery()));
     }
 
     @Override
