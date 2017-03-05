@@ -10,8 +10,8 @@
         app:showAsAction="always|collapseActionView" />
     <item
         android:id="@+id/add_favorites"
-        android:title="Add image to favorites" />
+        android:title="@string/add_image_to_favorites" />
     <item
         android:id="@+id/save_to_database"
-        android:title="Save results in db" />
+        android:title="@string/save_results_to_database" />
 </menu>

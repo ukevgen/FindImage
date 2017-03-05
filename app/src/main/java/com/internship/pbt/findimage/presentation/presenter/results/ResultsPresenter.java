@@ -10,4 +10,8 @@ public interface ResultsPresenter {
     void checkSearchRequest(String query);
 
     void addImageToFavorites();
+
+    void saveResultsToDb();
+
+    void onDestroy();
 }

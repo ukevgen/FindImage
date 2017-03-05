@@ -10,7 +10,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,9 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.internship.pbt.findimage.R;
@@ -64,17 +61,6 @@ public class ResultsFragment extends Fragment implements ResultsView,
         mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
 
-        EditText editText = (EditText) view.findViewById(R.id.keyboard_search);
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == event.KEYCODE_SEARCH) {
-                    checkContent();
-                    return true;
-                }
-                return false;
-            }
-        });
         btFind.setOnClickListener(this);
         setHasOptionsMenu(true);
         return view;
@@ -117,6 +103,8 @@ public class ResultsFragment extends Fragment implements ResultsView,
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.add_favorites)
             presenter.addImageToFavorites();
+        if (item.getItemId() == R.id.save_to_database)
+            presenter.saveResultsToDb();
         return super.onOptionsItemSelected(item);
     }
 
@@ -194,5 +182,6 @@ public class ResultsFragment extends Fragment implements ResultsView,
     @Override
     public void onDestroy() {
         super.onDestroy();
+        presenter.onDestroy();
     }
 }

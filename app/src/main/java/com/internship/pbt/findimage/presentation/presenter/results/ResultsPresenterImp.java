@@ -13,26 +13,31 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import io.realm.Realm;
+
 /**
  * Created by user on 01.03.2017.
  */
 
 public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnImageClickCallback {
 
+    private static final String ADD_IMAGE = "Image added";
+    private static final String EMPTY = "Nothing to search";
+    private static final String NOTHING_ADD_TO_DB = "Nothing to add, mark image";
     private ResultsView resultsView;
     private ImageAdapter adapter;
     private List<Item> items;
     private CachePhotos cachePhotos;
     private Converter converter;
     private CacheSharedPreferences sharedPreferences;
-
+    private Realm realm;
 
     public ResultsPresenterImp(ResultsView resultsView, CachePhotos cachePhotos,
                                CacheSharedPreferences sharedPreferences) {
         this.resultsView = resultsView;
         this.cachePhotos = cachePhotos;
         this.sharedPreferences = sharedPreferences;
-
+        realm = Realm.getDefaultInstance();
         converter = new Converter(resultsView.geCurrentContext());
         items = new ArrayList<>();
         adapter = new ImageAdapter(items, resultsView.geCurrentContext());
@@ -61,7 +66,7 @@ public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnIma
         if (query != null)
             resultsView.findImage();
         else
-            resultsView.showToast("Nothing to search");
+            resultsView.showToast(EMPTY);
     }
 
     @Override
@@ -71,8 +76,28 @@ public class ResultsPresenterImp implements ResultsPresenter, ImageAdapter.OnIma
             for (Bitmap b : bitmaps) {
                 cachePhotos.savePhoto(b);
             }
-            resultsView.showToast("image added");
+            resultsView.showToast(ADD_IMAGE);
         }
+    }
+
+    @Override
+    public void saveResultsToDb() {
+        realm.beginTransaction();
+        int count = 0;
+        for (Item i : adapter.getItems()) {
+            if (i.isChecked()) {
+                realm.copyToRealm(i);
+                count++;
+            }
+        }
+        if (count == 0)
+            resultsView.showToast(NOTHING_ADD_TO_DB);
+        realm.commitTransaction();
+    }
+
+    @Override
+    public void onDestroy() {
+        realm.close();
     }
 
 

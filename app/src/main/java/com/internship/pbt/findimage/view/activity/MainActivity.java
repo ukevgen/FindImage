@@ -10,6 +10,8 @@ import com.internship.pbt.findimage.presentation.presenter.main.MainPresenterIml
 import com.internship.pbt.findimage.view.MainView;
 import com.internship.pbt.findimage.view.fragment.TabsFragment;
 
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity implements MainView, View.OnClickListener {
 
 
@@ -22,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements MainView, View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         presenter = new MainPresenterIml(this);
-
+        Realm.init(this);
         initViews();
     }
 
