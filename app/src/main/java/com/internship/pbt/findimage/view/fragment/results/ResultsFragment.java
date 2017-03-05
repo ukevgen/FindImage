@@ -3,6 +3,7 @@ package com.internship.pbt.findimage.view.fragment.results;
 import android.app.LoaderManager;
 import android.content.Context;
 import android.content.Loader;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -36,6 +37,7 @@ import com.internship.pbt.findimage.view.fragment.FullScreenImageFragment;
 public class ResultsFragment extends Fragment implements ResultsView,
         LoaderManager.LoaderCallbacks<Response>, View.OnClickListener {
 
+    private static final String CHECK_CONNECTION = "Check your network connection";
     private ResultsPresenterImp presenter;
     private Button btFind;
     private ProgressBar mProgressBar;
@@ -147,6 +149,11 @@ public class ResultsFragment extends Fragment implements ResultsView,
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
+
     @Override
     public void checkContent() {
         presenter.checkSearchRequest(String.valueOf(mSearch.getQuery()));
@@ -173,7 +180,11 @@ public class ResultsFragment extends Fragment implements ResultsView,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.find_image:
-                checkContent();
+                if (isNetworkConnected()) {
+                    checkContent();
+                } else {
+                    showToast(CHECK_CONNECTION);
+                }
                 break;
 
         }
