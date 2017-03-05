@@ -6,4 +6,7 @@
     <dimen name="sing_up_element_width">216dp</dimen>
     <dimen name="sing_up_element_height">48dp</dimen>
     <dimen name="tablayout_height">55dp</dimen>
+    <dimen name="btn_w">216dp</dimen>
+    <dimen name="btn_h">48dp</dimen>
+    <dimen name="btn_mergin">17dp</dimen>
 </resources>

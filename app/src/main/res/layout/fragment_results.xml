@@ -26,11 +26,11 @@
 
     <Button
         android:id="@+id/find_image"
-        android:layout_width="216dp"
-        android:layout_height="48dp"
+        android:layout_width="@dimen/btn_w"
+        android:layout_height="@dimen/btn_h"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="@dimen/btn_mergin"
         android:background="@color/separator"
         android:enabled="false"
         android:text="@string/find_image"

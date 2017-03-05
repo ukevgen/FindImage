@@ -13,7 +13,6 @@ import retrofit2.http.Query;
 
 public interface SearchService {
 
-    // TODO  implement my request
 
     @GET("/customsearch/v1")
     Call<ImageResponse> findImage(@Query("q") String q,

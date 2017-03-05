@@ -23,10 +23,6 @@ public class FavImageAdapter extends RecyclerView.Adapter<FavImageAdapter.VH> {
     private List<String> urls = new ArrayList<>();
     private Context context;
 
-    /*public FavImageAdapter(List<String> urls, Context context) {
-        this.urls = urls;
-        this.context = context;
-    }*/
 
     public FavImageAdapter(Context context) {
         this.context = context;
